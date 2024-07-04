@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ansi-escapes": "^7.0.0",
+    "keypress": "^0.2.1"
+  }
+}
