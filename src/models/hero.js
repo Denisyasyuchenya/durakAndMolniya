@@ -4,27 +4,21 @@ class Hero {
         this.gameWidth = gameWidth;
         this.step = 0;
         this.isHit = false;
+        this.isJumping = false;
+        this.jumpFrame = 0;
+        this.jumpHeight = 3;
+        this.jumpFrames = [
+            ["    O", "   /|\\", "   / \\"],
+            ["    O", "   / \\", "   / \\"],
+            ["    O", "   / \\", "    \\"],
+            ["    O", "   / \\", "   / \\"],
+            ["    O", "   / \\", "   / \\"]
+        ];
         this.frames = [
-            [
-                "    O",
-                "   /|\\",
-                "   / \\"
-            ],
-            [
-                "    0",
-                "   /|\\",
-                "   /|"
-            ],
-            [
-                "    O",
-                "   /|\\",
-                "    |\\"
-            ],
-            [
-                "    0",
-                "   /|\\",
-                "   / \\"
-            ]
+            ["    O", "   /|\\", "   / \\"],
+            ["    0", "   /|\\", "   /|"],
+            ["    O", "   /|\\", "    |\\"],
+            ["    0", "   /|\\", "   / \\"]
         ];
     }
 
@@ -42,15 +36,44 @@ class Hero {
         }
     }
 
+    jump() {
+        if (!this.isJumping) {
+            this.isJumping = true;
+            this.jumpFrame = 0;
+        }
+    }
+
+    updateJump() {
+        if (this.isJumping) {
+            this.jumpFrame++;
+            if (this.jumpFrame > this.jumpHeight) {
+                this.isJumping = false;
+                this.jumpFrame = 0;
+            }
+        }
+    }
+
     reset(position, gameWidth) {
         this.position = position;
         this.gameWidth = gameWidth;
         this.step = 0;
         this.isHit = false;
+        this.isJumping = false;
+        this.jumpFrame = 0;
     }
 
     getCurrentFrame() {
-        return this.isHit ? [" БЛЯ💀", "   /|\\", "   / \\"] : this.frames[this.step % this.frames.length];
+        if (this.isHit) {
+            return [" БЛЯ💀", "   /|\\", "   / \\"];
+        } else if (this.isJumping) {
+            return this.jumpFrames[this.jumpFrame % this.jumpFrames.length];
+        } else {
+            return this.frames[this.step % this.frames.length];
+        }
+    }
+
+    getHeroLine() {
+        return process.stdout.rows - this.frames[0].length - 1 - (this.isJumping ? this.jumpHeight : 0);
     }
 }
 

@@ -1,4 +1,4 @@
-async function displayGame({ process, hero, clouds, birds, items, gameWidth, gameOver, score }) {
+async function displayGame({ process, hero, clouds, birds, items, enemies, gameWidth, gameOver, score }) {
     const { default: ansiEscapes } = await import('ansi-escapes');
     process.stdout.write(ansiEscapes.clearScreen);
     process.stdout.write(ansiEscapes.cursorTo(0, 0));
@@ -34,10 +34,18 @@ async function displayGame({ process, hero, clouds, birds, items, gameWidth, gam
     }
 
     const heroFrame = hero.getCurrentFrame();
-    const heroStartLine = process.stdout.rows - heroFrame.length - 1;
+    const heroStartLine = process.stdout.rows - heroFrame.length - 1 - (hero.isJumping ? hero.jumpHeight : 0);
     for (let i = 0; i < heroFrame.length; i++) {
         process.stdout.write(ansiEscapes.cursorTo(hero.position, heroStartLine + i));
         process.stdout.write(heroFrame[i]);
+    }
+
+    for (const enemy of enemies.getEnemies()) {
+        const enemyLines = enemy.frame;
+        for (let i = 0; i < enemyLines.length; i++) {
+            process.stdout.write(ansiEscapes.cursorTo(enemy.position, enemy.line + i));
+            process.stdout.write(enemyLines[i]);
+        }
     }
 
     if (gameOver) {

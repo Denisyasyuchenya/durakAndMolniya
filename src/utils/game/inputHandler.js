@@ -6,6 +6,8 @@ function handleKeyPress({ hero, displayGame, restartGame }) {
             hero.moveRight();
         } else if (key && key.name === 'left') {
             hero.moveLeft();
+        } else if (key && key.name === 'space') {
+            hero.jump();
         } else if (key && key.ctrl && key.name === 's') {
             restartGame();
         }
