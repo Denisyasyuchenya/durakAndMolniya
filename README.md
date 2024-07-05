@@ -1,5 +1,5 @@
 # durakAndMolniya
-A simple terminal-based node.js game where you control a hero to avoid lightning bolts from clouds & other enemys. Based on song "Дурак и молния" from Король и Шут band.
+A simple terminal-based node.js game where you control a hero to avoid lightning bolts from clouds & other enemies. Based on song "Дурак и молния" from Король и Шут band.
 
 ```                 
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
